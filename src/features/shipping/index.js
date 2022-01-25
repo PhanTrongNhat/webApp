@@ -4,6 +4,7 @@ import { setShippingAddress } from "../../redux/cart";
 import CheckSteps from "../../components/checksteps.js";
 import addressApi from "../../api/addressApi";
 import Cookies from "js-cookie";
+import ShipperImage from "../../assets/Shipper.png"
 import {
   Container,
   Col,
@@ -19,6 +20,7 @@ import {
 } from "reactstrap";
 import "../../css/shipping.css";
 import classnames from "classnames";
+import { styled } from "@material-ui/core";
 // import { set } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 const Shipping = (Props) => {
   const [listAddress, setListAddress] = useState([]);
@@ -32,10 +34,10 @@ const Shipping = (Props) => {
   const [country, setCountry] = useState();
   const [postalCode, setPostalCode] = useState();
   const dispatch = useDispatch();
- 
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
- 
+
   const [activeTab, setActiveTab] = useState("1");
   const [option, setOption] = useState("1");
   const [change, setChange] = useState({
@@ -43,11 +45,11 @@ const Shipping = (Props) => {
     currentPage: 1,
     keyword: "",
   });
-   const userInfor = JSON.parse(Cookies.get("userInfor"));
-   console.log(userInfor);
-   if (!userInfor) {
-     Props.history.push("/signin/redirect=/");
-   }
+  const userInfor = JSON.parse(Cookies.get("userInfor"));
+  console.log(userInfor);
+  if (!userInfor) {
+    Props.history.push("/signin/redirect=/");
+  }
   const toggle = (tab) => {
     console.log(tab);
     if (activeTab !== tab) setActiveTab(tab);
@@ -97,7 +99,6 @@ const Shipping = (Props) => {
       const getAddress = async () => {
         const data = await addressApi.getDiaChiById(userInfor.Id);
         setListAddress(data);
-   
       };
       getAddress();
     } catch (error) {
@@ -105,7 +106,7 @@ const Shipping = (Props) => {
     }
   }, []);
   return (
-    <Container className="content">
+    <div className="content">
       <CheckSteps step1 step2></CheckSteps>
       <div>
         <Nav tabs>
@@ -175,7 +176,10 @@ const Shipping = (Props) => {
           </TabPane>
           <TabPane tabId="2">
             <Row>
-              <Col sm="6">
+              <Col className="image_Shipper" sm="1" md="5" lg="7">
+                <img className="image_Shipper_img" src={ShipperImage}></img>
+              </Col>
+              <Col sm="11" md="7" lg="5">
                 <Card body>
                   <form className="form-shipping" onSubmit={submitHandler}>
                     <h5>Shipping information</h5>
@@ -311,16 +315,18 @@ district"
                       required
                     ></input> */}
                     <br />
-                    <button
+                    <Button
+                      color="success"
                       className="input-shipping button-shipping"
                       type="submit"
                     >
                       Continue
-                    </button>
+                    </Button>
                   </form>
                   {/* <Button>Go somewhere</Button> */}
                 </Card>
               </Col>
+
               {/* <Col sm="6">
                 <Card body>
                   <CardTitle>Special Title Treatment</CardTitle>
@@ -335,7 +341,7 @@ district"
           </TabPane>
         </TabContent>
       </div>
-    </Container>
+    </div>
   );
 };
 

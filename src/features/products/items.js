@@ -209,7 +209,7 @@ const Items = () => {
         </div> */}
 
       <Row>
-        <Col sm="2">
+        <Col sm="5" md="3" lg="2">
           <ListLeftMoney
             value={value}
             rangeSelector={rangeSelector}
@@ -244,11 +244,11 @@ const Items = () => {
               </div> */}
           </FormGroup>
         </Col>
-        <Col sm="10">
+        <Col sm="7" md="9" lg="10">
           {isLoading === false ? (
             <LoadingBox />
           ) : (
-            <Row >
+            <Row>
               {products?.map((item) => (
                 <Col key={item.id} md={6} sm={12} lg={3}>
                   <Item item={item}></Item>

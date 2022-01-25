@@ -18,7 +18,7 @@
    
 }
 .form-shipping .input-shipping{
-    width: 50px;
+    width: 27rem;
     height: 2.5rem;
     border-radius: 5px;
     border: solid 1px;
@@ -26,11 +26,16 @@
     padding-left: 1rem;
 }
 .form-shipping  .button-shipping{
-    background-color: hsl(39, 100%, 50%);
+    /* background-color: hsl(39, 100%, 50%); */
     margin-top: 3rem;
 }
 .form-shipping  .label-shipping{
   
    text-align: start;
    width: 27rem;
+}
+@media only screen and (max-width: 1000px) {
+  .image_Shipper{
+      display: none;
+  }
 }
