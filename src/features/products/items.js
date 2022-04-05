@@ -55,7 +55,7 @@ const Items = () => {
   const query = new URLSearchParams(query1).get("name");
   // console.log("params", query);
   const [show, setShow] = useState(false);
-  const [value, setValue] = useState([10000, 999999]);
+  const [value, setValue] = useState([0, 2000000]);
   const rangeSelector = (event, newValue) => {
     setValue(newValue);
   };
@@ -106,7 +106,7 @@ const Items = () => {
       try {
         const getListCuaHang = await StoreApi.getAllStore();
 
-        getListCuaHang.unshift({ Id: 0, TenCuaHang: "Tất cả" });
+        getListCuaHang.unshift({ UserId: 0, TenCuaHang: "Tất cả" });
         console.log("listch", getListCuaHang);
         setListStore(getListCuaHang);
         // setStore(getListCuaHang[0]);
@@ -147,11 +147,11 @@ const Items = () => {
       console.log("e", e.target.value);
       if (e.target.value === "0") {
         getListCuaHang = await productApi.getAll();
-        console.log(getListCuaHang);
+        
       } else {
         getListCuaHang = await StoreApi.getProductByStore(e.target.value);
       }
-
+console.log(getListCuaHang);
       if (getListCuaHang.data === "") {
         setProducts([]);
       } else {
@@ -216,12 +216,12 @@ const Items = () => {
             hanldeMoney={hanldeMoney}
           />
           <FormGroup onChange={(e) => HandleStore(e)} check block>
-            Chọn nhà cửa hàng
+            <h5>Chọn cửa hàng</h5>
             {listStore?.map((item, index) => {
               return (
                 <div key={index}>
                   <Label check>
-                    <Input name="list-ch" value={item.Id} type="radio" />{" "}
+                    <Input name="list-ch" value={item.UserId} type="radio" />{" "}
                     {item?.TenCuaHang}
                   </Label>
                 </div>

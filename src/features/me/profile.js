@@ -7,9 +7,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import userDefaut from "../../assets/user.png";
- 
+
 import {
   Button,
+  Form,
   Col,
   Container,
   Row,
@@ -38,6 +39,7 @@ import "../../css/profile.css";
 import orderStatusApi from "../../api/orderStatusApi";
 import FeedbackApi from "../../api/feedbackApi";
 import orderApi from "../../api/orderApi";
+import UserApi from "../../api/userApi";
 // import { signOut } from "../../redux/auth";
 // import { get } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 
@@ -57,15 +59,29 @@ const Profile = (Props) => {
   const [Feedback, setFeedback] = useState("");
   const [option, setOption] = useState("1");
   const [checkFeedback, setcheckFeedback] = useState(0);
+  const [isEdit, setIsEdit] = useState(false);
+
   const [change, setChange] = useState({
     status: "",
     currentPage: 1,
     keyword: "",
   });
-console.log(1);
+  console.log(1);
   if (!userInfor) {
     Props.history.push("/signin");
   }
+  console.log(userInfor);
+  const [hoTen, setHoTen] = useState(userInfor?.HoTen);
+  const [ngaySinh, setNgaySinh] = useState(userInfor?.NgaySinh);
+  const [sdt, setsdt] = useState(userInfor?.SDT);
+  const [gioiTinh, setGioiTinh] = useState(userInfor?.GioiTinh);
+  // useEffect(() => {
+  //   setHoTen(userInfor?.HoTen);
+  //   setNgaySinh(userInfor?.NgaySinh);
+  //   setsdt(userInfor?.SDT);
+  //   setGioiTinh(userInfor?.GioiTinh);
+  // }, [userInfor]);
+
   const listDiem = [1, 2, 3, 4, 5];
   const logout = () => {
     Cookies.remove("userInfor");
@@ -145,7 +161,7 @@ console.log(1);
     try {
       console.log(item);
       const temp = await FeedbackApi.CheckfeedbackOrder(item);
-      console.log("temp",temp);
+      console.log("temp", temp);
       setcheckFeedback(temp);
       if (temp === 3) {
         toast.warning("đơn hàng đã đánh giá cho shipper và cửa hàng!");
@@ -166,14 +182,28 @@ console.log(1);
 
     //
   };
-  const handleSetDiem = (item)=>{
+  const handleSetDiem = (item) => {
     setDiem(item);
-console.log("diem",item);
-  }
+    console.log("diem", item);
+  };
+  const updateInfor = async (data) => {
+    console.log("infor", sdt, hoTen, gioiTinh);
+    try {
+      await UserApi.updateInfor({
+        userId: userInfor.Id,
+        gioiTinh: data.gioiTinh,
+        sdt: data.sdt,
+        hoTen: data.hoTen,
+      });
+      setIsEdit(!isEdit);
+    } catch (error) {}
+  };
   return (
     <Container className="content">
       <ToastContainer />
-      <Button color="success"  onClick={()=>logout()}>Đăng xuất</Button>
+      <Button color="success" onClick={() => logout()}>
+        Đăng xuất
+      </Button>
       <div className="profile">
         <h2>
           <b>Tài khoản của bạn</b>
@@ -219,30 +249,109 @@ console.log("diem",item);
                 <TabPane tabId="1">
                   <Row>
                     <Col className="Quan_Ly_Tai_Khoan">
-                      <hr />
-                    <h3>
-                        {userInfor?.username
-                          ? "username: " + userInfor.username
-                          : ""}
-                      </h3>
-                      <h4>
-                        {userInfor?.email ? "email: " + userInfor.email : ""}
-                      </h4>
-                       <h4>{userInfor?.SDT ? "SDT: " + userInfor.SDT : ""} </h4>
-                      <h4>
-                        <b>{userInfor?.GioiTinh ? userInfor.GioiTinh : ""}</b>
-                      </h4>
+                      <div>
+                        <h3>Tên tài khoản</h3>
+                        <h4>
+                          {userInfor?.username ? ":" + userInfor.username : ":"}
+                        </h4>
+                      </div>
+                      <div>
+                        <h3>Email</h3>
+                        <h4>{userInfor?.email ? ":" + userInfor.email : ""}</h4>
+                      </div>
 
-                      <p>
+                      <div>
+                        <h3>Số điện thoại</h3>
+                        <h4>
+                          {":"}
+                          {isEdit ? (
+                            <input
+                              style={{ width: "200px" }}
+                              type="text"
+                              required
+                              value={sdt}
+                              onChange={(e) => setsdt(e.target.value)}
+                            ></input>
+                          ) : (
+                            sdt
+                          )}
+                        </h4>
+                      </div>
+                      <div>
+                        <h3>Họ Tên</h3>
+                        <h4>
+                          {":"}
+                          {isEdit ? (
+                            <input
+                              style={{ width: "200px" }}
+                              type="text"
+                              required
+                              value={hoTen}
+                              onChange={(e) => setHoTen(e.target.value)}
+                            ></input>
+                          ) : (
+                            hoTen
+                          )}
+                        </h4>
+                      </div>
+                      {/* <div>
+                        <h3>Ngày Sinh</h3>
+                        {":"}
+                        {isEdit ? (
+                          <input
+                            type="text"
+                            required
+                            value={gioiTinh}
+                            onChange={(e) => setHoTen(e.target.value)}
+                          ></input>
+                        ) : (
+                          gioiTinh
+                        )}
+                      </div> */}
+                      <div>
+                        <h3>Giới tính</h3>
+                        <h4>
+                          {":"}
+                          {isEdit ? (
+                            <input
+                              style={{ width: "200px" }}
+                              type="text"
+                              required
+                              value={gioiTinh}
+                              onChange={(e) => setGioiTinh(e.target.value)}
+                            ></input>
+                          ) : (
+                            gioiTinh
+                          )}
+                        </h4>
+                      </div>
+                      {/* <div>
+                        <h4>
+                          <b>{userInfor?.GioiTinh ? userInfor.GioiTinh : ""}</b>
+                        </h4>
+                      </div> */}
+                      {/* <p>
                         {" "}
                         <i className="fas fa-map-marker-alt"></i>
-                      </p>
-                      {/* <Button
-                        onClick={() => logout()}
-                        className="profile-buttonLogout"
+                      </p> */}
+                      {isEdit ? (
+                        <Button
+                          color="success"
+                          onClick={() => updateInfor({ sdt, hoTen, gioiTinh })}
+                          className="profile-buttonEdit"
+                        >
+                          Cập nhật thông tin
+                        </Button>
+                      ) : (
+                        ""
+                      )}
+                      <Button
+                        onClick={() => setIsEdit(!isEdit)}
+                        className="profile-buttonEdit"
                       >
-                        <h6>Logout</h6>
-                      </Button> */}
+                        Chỉnh sửa thông tin
+                      </Button>
+                      <br></br>
                     </Col>
                   </Row>
                 </TabPane>
@@ -251,7 +360,6 @@ console.log("diem",item);
                     {showDetaiOrder ? (
                       <div>
                         <Button
-                         
                           onClick={() => {
                             setShowDetaiOrder(false);
                           }}
@@ -259,7 +367,7 @@ console.log("diem",item);
                           style={{
                             padding: "7px",
                             backgroundColor: "#69D84F",
-                            color:"white"
+                            color: "white",
                           }}
                         >
                           Trở lại
@@ -357,18 +465,23 @@ console.log("diem",item);
                                       </td>
                                       <td>
                                         <div>
-                                          <Button
-                                            color="danger"
-                                            onClick={() => {
-                                              handleShowModal(item.id);
-                                            }}
-                                            style={{
-                                              padding: "7px",
-                                              backgroundColor: "#69D84F",
-                                            }}
-                                          >
-                                            Đánh giá
-                                          </Button>
+                                          {item.trangThaiDonHang.id === 5 ? (
+                                            <Button
+                                              color="danger"
+                                              onClick={() => {
+                                                handleShowModal(item.id);
+                                              }}
+                                              style={{
+                                                padding: "7px",
+                                                backgroundColor: "#69D84F",
+                                              }}
+                                            >
+                                              Đánh giá
+                                            </Button>
+                                          ) : (
+                                            ""
+                                          )}
+
                                           <Modal
                                             toggle={() => {
                                               setShowModal(!showModal);
@@ -560,9 +673,8 @@ console.log("diem",item);
                                                                       }
                                                                       onClick={() => {
                                                                         handleSetDiem(
-                                                                        item
+                                                                          item
                                                                         );
-                                                                       
                                                                       }}
                                                                     >
                                                                       {item}
@@ -654,8 +766,6 @@ console.log("diem",item);
                         </Table>
                       </div>
                     )}
-
-                    <hr></hr>
                   </Row>
                 </TabPane>
               </TabContent>
@@ -689,6 +799,7 @@ console.log("diem",item);
           </Col>
         </Row> */}
       </div>
+      <hr></hr>
     </Container>
   );
 };

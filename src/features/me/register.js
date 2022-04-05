@@ -34,7 +34,7 @@ const Signin = (Props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [checkPassword,setCheckPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
   const [email, setEmail] = useState("");
   // const dispatch = useDispatch();
   const redirect = Props.location.search
@@ -57,7 +57,7 @@ const Signin = (Props) => {
 
   const submit = async (infor) => {
     try {
-      if(checkPassword === password){
+      if (checkPassword === password && checkPassword && password) {
         // const params = { _page: 1, _limit: 10 };
         const data = await loginApi.registerUser(infor);
 
@@ -67,15 +67,23 @@ const Signin = (Props) => {
         if (data) {
           Cookies.set(JSON.stringify(data));
           // dispatch(signIn());
-          toast.success("Đăng ký tài khoản thành công!")
+          toast.success("Đăng ký tài khoản thành công!");
+          const settime = () => {
+            const settimeout = setTimeout(() => {
+              console.log("settimeout");
+            }, 2000);
+            return clearInterval(settimeout);
+          };
+
+          settime();
+
           Props.history.push("/signin");
-        }else{
+        } else {
           toast.warning("Đăng ký tài khoản thất bại!");
         }
-      }else{
-toast.warning("Không khớp mật khẩu!")
+      } else {
+        toast.warning("Không khớp mật khẩu!");
       }
-    
 
       // console.log("Fetch products successfully: ", response.data);
     } catch (error) {
@@ -108,40 +116,40 @@ toast.warning("Không khớp mật khẩu!")
                   type="email"
                   name="email"
                   id="exampleEmail"
-                  placeholder="Email"
+                  placeholder="Nhập email"
                   onChange={(event) => setEmail(event.target.value)}
                   required
                 />
               </FormGroup>{" "}
               <FormGroup>
-                <Label for="exampleEmail">Username</Label>
+                <Label for="exampleEmail">Tên tài khoản</Label>
                 <Input
                   type="text"
                   name="username"
                   id="exampleEmail"
-                  placeholder="username"
+                  placeholder="Nhập tên tài khoản"
                   onChange={(event) => setUsername(event.target.value)}
                   required
                 />
               </FormGroup>{" "}
               <FormGroup>
-                <Label for="examplePassword">Password</Label>
+                <Label for="examplePassword">Mật khẩu</Label>
                 <Input
                   type="password"
                   name="password"
                   id="examplePassword"
-                  placeholder="Password"
+                  placeholder="Nhập mật khẩu"
                   onChange={(event) => setPassword(event.target.value)}
                   required
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="examplePassword">Confirm</Label>
+                <Label for="examplePassword">Xác nhận mật khẩu</Label>
                 <Input
                   type="password"
                   name="password"
                   id="examplePassword"
-                  placeholder="Password"
+                  placeholder="Nhập mật khẩu"
                   onChange={(event) => setCheckPassword(event.target.value)}
                   required
                 />
@@ -151,7 +159,7 @@ toast.warning("Không khớp mật khẩu!")
                 onClick={() => submit({ username, password, email })}
               >
                 {" "}
-                <b>Submit</b>
+                <b>Đăng ký</b>
               </Button>{" "}
               {/* <StyledFirebaseAuth
                 uiConfig={uiConfig}

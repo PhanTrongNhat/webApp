@@ -8,6 +8,10 @@ const UserApi = {
     const url = "/api/Authenticate/RegisterCustomer";
     return axiosClient.post(url, data);
   },
+  updateInfor: (data) => {
+    const url = "/api/khachhang/suathongtin";
+    return axiosClient.post(url, data);
+  },
 };
 
 export default UserApi;

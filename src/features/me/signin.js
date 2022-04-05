@@ -66,7 +66,7 @@ const Signin = (Props) => {
   };
   return (
     <div className="content">
-      <ToastContainer />;
+      <ToastContainer />
       <Row>
         <Col className="image_Shipper" sm="5" md="6" lg="7">
           <img className="image_Shipper_img_login" src={ShipperImgae}></img>
@@ -80,11 +80,11 @@ const Signin = (Props) => {
                 alt="logo"
               />
             </div>
-            <h2>Log in</h2>
+            <h2>Đăng nhập</h2>
             <hr />
             <Form>
               <FormGroup>
-                <Label for="exampleEmail">Username</Label>
+                <Label for="exampleEmail">Tài khoản</Label>
                 <Input
                   type="text"
                   name="email"
@@ -94,7 +94,7 @@ const Signin = (Props) => {
                 />
               </FormGroup>{" "}
               <FormGroup>
-                <Label for="examplePassword">Password</Label>
+                <Label for="examplePassword">Mật khẩu</Label>
                 <Input
                   type="password"
                   name="password"
@@ -103,17 +103,17 @@ const Signin = (Props) => {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </FormGroup>
-              <p className="login-forgotPassword">Forgot your password?</p>
+              <p className="login-forgotPassword">Quên mật khẩu?</p>
               <Button
                 color="success"
                 onClick={() => submit({ username, password })}
               >
                 {" "}
-                <b>Log in</b>
+                <b>Đăng nhập</b>
               </Button>{" "}
               <Link to="/register">
                 <Button color="success">
-                  <b>register</b>
+                  <b>Đăng ký</b>
                 </Button>
               </Link>
               {/* <StyledFirebaseAuth

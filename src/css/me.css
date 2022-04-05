@@ -34,8 +34,14 @@
     width: 350px;
     height: 150px;
   }
-  .Quan_Ly_Tai_Khoan{
-    text-align: center;
+  .Quan_Ly_Tai_Khoan h3{
+ width: 200px;
   }
 
-  
+    .Quan_Ly_Tai_Khoan div{
+ display: flex;
+  }
+.profile-buttonEdit{
+  margin-bottom: 2rem;
+  width: 100%;
+}

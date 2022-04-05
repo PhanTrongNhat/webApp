@@ -184,21 +184,21 @@ const Shipping = (Props) => {
                   <form className="form-shipping" onSubmit={submitHandler}>
                     <h5>Shipping information</h5>
                     <label className="label-shipping" htmlFor="fullname">
-                      Full Name
+                     Tên người nhận hàng
                     </label>
                     <br />
                     <input
                       className="input-shipping"
                       id="fullname"
                       type="text"
-                      placeholder="Enter full name"
+                      placeholder="Nhập tên người nhận"
                       value={fullname}
                       onChange={(e) => setFullname(e.target.value)}
                       required
                     ></input>
                     <br />
                     <label className="label-shipping" htmlFor="postalCode">
-                      Phone number
+                      Số điện thoại 
                     </label>
                     <br />
                     <input
@@ -213,42 +213,42 @@ const Shipping = (Props) => {
                     <br />
 
                     <label className="label-shipping" htmlFor="apartmentnumber">
-                      apartment number
+                      Số nhà
                     </label>
                     <br />
                     <input
                       className="input-shipping"
                       id="apartmentnumber"
                       type="text"
-                      placeholder="Enter apartment number"
+                      placeholder="Nhập số nhà"
                       value={apartmentnumber}
                       onChange={(e) => setApartmentnumber(e.target.value)}
                       required
                     ></input>
                     <br />
                     <label className="label-shipping" htmlFor=" streetnames">
-                      Street names
+                      Tên đường
                     </label>
                     <br />
                     <input
                       className="input-shipping"
                       id="streetnames"
                       type="text"
-                      placeholder="Enter street names"
+                      placeholder="Nhập tên đường"
                       value={streetnames}
                       onChange={(e) => setStreetNames(e.target.value)}
                       required
                     ></input>
                     <br />
                     <label className="label-shipping" htmlFor="wards">
-                      wards
+                      Xã/Phường
                     </label>
                     <br />
                     <input
                       className="input-shipping"
                       id="wards"
                       type="text"
-                      placeholder="Enter wards"
+                      placeholder="Nhập xã/phường"
                       value={wards}
                       onChange={(e) => setWards(e.target.value)}
                       required
@@ -259,14 +259,14 @@ const Shipping = (Props) => {
                       htmlFor="
 district"
                     >
-                      District
+                      Quận
                     </label>
                     <br />
                     <input
                       className="input-shipping"
                       id="district"
                       type="text"
-                      placeholder="Enter District"
+                      placeholder="Nhập quận"
                       value={district}
                       onChange={(e) => setDistrict(e.target.value)}
                       required
@@ -274,14 +274,14 @@ district"
 
                     <br />
                     <label className="label-shipping" htmlFor="city">
-                      City
+                      Thành phố
                     </label>
                     <br />
                     <input
                       className="input-shipping"
                       id="city"
                       type="text"
-                      placeholder="Enter city"
+                      placeholder="Nhập thành phố"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
                       required

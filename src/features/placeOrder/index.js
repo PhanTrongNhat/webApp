@@ -119,7 +119,7 @@ const PlaceOrder = (Props) => {
                   {sdt}
                 </p>
                 <p>
-                  <b>Address:</b> {idDiaChi},{apartmentnumber}, {streetnames},{wards},{" "}
+                  <b>Address:</b> {apartmentnumber}, {streetnames},{wards},{" "}
                   {district} ,{city}
                 </p>
               </div>
